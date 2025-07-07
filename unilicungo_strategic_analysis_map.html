@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Estratégica UniLicungo - Mapa Conceitual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 25px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .author-credit {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #b0b0b0;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .strategic-map {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pillar-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pillar-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .excellence-pillars {
+            background: linear-gradient(135deg, rgba(34, 193, 195, 0.2), rgba(253, 187, 45, 0.2));
+            border-left: 5px solid #22c1c3;
+        }
+
+        .critical-challenges {
+            background: linear-gradient(135deg, rgba(255, 94, 77, 0.2), rgba(255, 154, 0, 0.2));
+            border-left: 5px solid #ff5e4d;
+        }
+
+        .transformation-opportunities {
+            background: linear-gradient(135deg, rgba(67, 206, 162, 0.2), rgba(24, 90, 157, 0.2));
+            border-left: 5px solid #43cea2;
+        }
+
+        .systemic-risks {
+            background: linear-gradient(135deg, rgba(159, 90, 253, 0.2), rgba(79, 172, 254, 0.2));
+            border-left: 5px solid #9f5afd;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateX(5px);
+        }
+
+        .metric-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-description {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            line-height: 1.5;
+        }
+
+        .positive { color: #43cea2; }
+        .warning { color: #fdcb6e; }
+        .critical { color: #ff5e4d; }
+        .neutral { color: #74b9ff; }
+
+        .roadmap-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .roadmap-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .phase-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+        }
+
+        .phase-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .priority-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 3px solid #4facfe;
+        }
+
+        .priority-label {
+            font-size: 0.8rem;
+            color: #4facfe;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .success-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .metric-comparison {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        .metric-before {
+            color: #ff5e4d;
+            font-weight: 600;
+        }
+
+        .metric-after {
+            color: #43cea2;
+            font-weight: 600;
+        }
+
+        .final-verdict {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.2), rgba(159, 90, 253, 0.2));
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .verdict-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .verdict-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+
+        .action-points {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .action-point {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            color: #fff;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .key-highlight {
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #ffd700;
+        }
+
+        .key-highlight-text {
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .strategic-map {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap-timeline {
+                grid-template-columns: 1fr;
+            }
+            
+            .success-metrics {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 ANÁLISE ESTRATÉGICA UNILICUNGO</h1>
+        <div class="author-credit">
+            <strong>Elaborado por: Yuri Marcos John Romanisse</strong>
+        </div>
+
+        <div class="strategic-map">
+            <!-- Pilares de Excelência -->
+            <div class="pillar-section excellence-pillars">
+                <h2 class="section-title">🏆 PILARES DE EXCELÊNCIA</h2>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Alinhamento Estratégico</div>
+                    <div class="metric-value positive">87,2%</div>
+                    <div class="metric-description">Estudantes conhecem missão/visão<br>100% CTA alinhado com ODS</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Engajamento Discente</div>
+                    <div class="metric-value positive">100%</div>
+                    <div class="metric-description">Estudantes recomendam o curso<br>SIGEUL: 89,7% de satisfação</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Quadro Regulatório</div>
+                    <div class="metric-value positive">76,9%</div>
+                    <div class="metric-description">Conhecem Política de Género<br>Acesso FDI: 5.000.000 MT</div>
+                </div>
+
+                <div class="key-highlight">
+                    <div class="key-highlight-text">🔑 DIFERENCIAL COMPETITIVO</div>
+                    <div>24 linhas de pesquisa PSO aplicadas a demandas moçambicanas</div>
+                </div>
+            </div>
+
+            <!-- Desafios Críticos -->
+            <div class="pillar-section critical-challenges">
+                <h2 class="section-title">⚠️ DESAFIOS CRÍTICOS</h2>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Comunicação Institucional</div>
+                    <div class="metric-value critical">33,3%</div>
+                    <div class="metric-description">CTA com comunicação frágil<br>50% docentes desconhecem organograma</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Segurança Campus</div>
+                    <div class="metric-value critical">12,5%</div>
+                    <div class="metric-description">Consideram segurança adequada<br>Biblioteca: 60% avaliação negativa</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Cultura de Pesquisa</div>
+                    <div class="metric-value critical">20%</div>
+                    <div class="metric-description">Docentes com publicações (3 anos)<br>Financiamento interno inexistente</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Implementação Políticas</div>
+                    <div class="metric-value critical">33,3%</div>
+                    <div class="metric-description">CTA crê na implementação<br>Política de Género</div>
+                </div>
+            </div>
+
+            <!-- Oportunidades de Transformação -->
+            <div class="pillar-section transformation-opportunities">
+                <h2 class="section-title">🚀 OPORTUNIDADES DE TRANSFORMAÇÃO</h2>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Revolução Digital FDI</div>
+                    <div class="metric-value positive">5M MT</div>
+                    <div class="metric-description">Biblioteca 4.0 + Labs simulação<br>Sistema preditivo segurança</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Reengenharia Comunicação</div>
+                    <div class="metric-value neutral">51,3%</div>
+                    <div class="metric-description">Estudantes usam WhatsApp<br>Hub centralizado SIGEUL</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Internacionalização</div>
+                    <div class="metric-value positive">24</div>
+                    <div class="metric-description">Linhas pesquisa PSO<br>Parcerias SADC + CODESRIA</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Gestão Híbrida</div>
+                    <div class="metric-value neutral">Novo</div>
+                    <div class="metric-description">Comitês mistos participativos<br>Fiscalização e transparência</div>
+                </div>
+            </div>
+
+            <!-- Riscos Sistêmicos -->
+            <div class="pillar-section systemic-risks">
+                <h2 class="section-title">⚡ RISCOS SISTÊMICOS</h2>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Erosão Reputacional</div>
+                    <div class="metric-value critical">Alto</div>
+                    <div class="metric-description">Infraestrutura precária<br>Baixa produção científica</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Sanções Regulatórias</div>
+                    <div class="metric-value critical">Médio</div>
+                    <div class="metric-description">Descumprimento regulamento<br>Perda credenciamento</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Evasão de Talentos</div>
+                    <div class="metric-value warning">Médio</div>
+                    <div class="metric-description">Falta plano carreira<br>Migração para concorrentes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap Estratégico -->
+        <div class="roadmap-section">
+            <h2 class="section-title">📅 ROADMAP ESTRATÉGICO 2024-2026</h2>
+            
+            <div class="roadmap-timeline">
+                <div class="phase-card">
+                    <div class="phase-title">Fase 1: Emergência (0-12 meses)</div>
+                    <div class="priority-item">
+                        <div class="priority-label">PRIORIDADE 1</div>
+                        <div>Plano Diretor de Infraestrutura (segurança, acessibilidade, biblioteca) com FDI</div>
+                    </div>
+                    <div class="priority-item">
+                        <div class="priority-label">PRIORIDADE 2</div>
+                        <div>Programa Emergencial de Publicações (bolsas para 20 docentes)</div>
+                    </div>
+                </div>
+                
+                <div class="phase-card">
+                    <div class="phase-title">Fase 2: Consolidação (13-24 meses)</div>
+                    <div class="priority-item">
+                        <div class="priority-label">PRIORIDADE 1</div>
+                        <div>SIGEUL 2.0 com módulos transparência e engajamento</div>
+                    </div>
+                    <div class="priority-item">
+                        <div class="priority-label">PRIORIDADE 2</div>
+                        <div>Rede de Parcerias Internacionais (3 acordos IES africanas/lusófonas)</div>
+                    </div>
+                </div>
+                
+                <div class="phase-card">
+                    <div class="phase-title">Fase 3: Excelência (25-36 meses)</div>
+                    <div class="priority-item">
+                        <div class="priority-label">PRIORIDADE 1</div>
+                        <div>Centro de Referência em Psicologia Organizacional da SADC</div>
+                    </div>
+                    <div class="priority-item">
+                        <div class="priority-label">PRIORIDADE 2</div>
+                        <div>Modelo replicável de governança participativa para IES moçambicanas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Índices de Sucesso -->
+        <div class="roadmap-section">
+            <h2 class="section-title">📊 ÍNDICES DE SUCESSO</h2>
+            
+            <div class="success-metrics">
+                <div class="metric-comparison">
+                    <div class="metric-header">Satisfação Infraestrutura</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Atual:</span>
+                        <span class="metric-before">37,1%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Meta 2026:</span>
+                        <span class="metric-after">75%+</span>
+                    </div>
+                </div>
+                
+                <div class="metric-comparison">
+                    <div class="metric-header">Docentes com Publicações</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Atual:</span>
+                        <span class="metric-before">20%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Meta 2026:</span>
+                        <span class="metric-after">60%</span>
+                    </div>
+                </div>
+                
+                <div class="metric-comparison">
+                    <div class="metric-header">Transparência Bolsas</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Atual:</span>
+                        <span class="metric-before">17,9%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Meta 2026:</span>
+                        <span class="metric-after">40%+</span>
+                    </div>
+                </div>
+                
+                <div class="metric-comparison">
+                    <div class="metric-header">Participação Estudantil</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Atual:</span>
+                        <span class="metric-before">&lt;20%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Meta 2026:</span>
+                        <span class="metric-after">50%+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Veredicto Final -->
+        <div class="final-verdict">
+            <div class="verdict-title">⚖️ VEREDICTO FINAL</div>
+            <div class="verdict-text">
+                A UniLicungo possui <strong>DNA de excelência</strong> (missão clara, engajamento discente, currículo inovador), 
+                mas sofre de <strong>esquizofrenia operacional</strong>: políticas avançadas não se materializam em ações.
+            </div>
+            <div class="verdict-text">
+                O momento é de <strong>REVOLUÇÃO GERENCIAL</strong>:
+            </div>
+            
+            <div class="action-points">
+                <div class="action-point">📊 Professionalizar a Governança</div>
+                <div class="action-point">💰 Monetizar Oportunidades FDI</div>
+                <div class="action-point">👥 Estudantes como Auditores Sociais</div>
+            </div>
+            
+            <div class="key-highlight">
+                <div class="key-highlight-text">🎯 ÂNCORA ESTRATÉGICA</div>
+                <div>As 24 linhas de pesquisa do PSO são o diferencial para alavancar pesquisa, extensão e empregabilidade regional</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

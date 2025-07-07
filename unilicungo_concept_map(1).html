@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Conceitual - UniLicungo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .concept-map {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .dimension {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dimension:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .dimension-header {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .dimension-8 .dimension-header { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+        .dimension-9 .dimension-header { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+        .dimension-10 .dimension-header { background: linear-gradient(135deg, #a8e6cf, #88d8a3); }
+
+        .dimension-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-icon {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .dimension-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .expanded .dimension-content {
+            max-height: 2000px;
+        }
+
+        .subdimensions {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .subdimension {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid;
+            transition: transform 0.2s ease;
+        }
+
+        .dimension-8 .subdimension { border-left-color: #ff6b6b; }
+        .dimension-9 .subdimension { border-left-color: #4ecdc4; }
+        .dimension-10 .subdimension { border-left-color: #a8e6cf; }
+
+        .subdimension:hover {
+            transform: translateX(5px);
+        }
+
+        .subdimension-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .subdimension-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        .key-point {
+            background: #e2e8f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 8px 0;
+            border-left: 3px solid #4299e1;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+
+        .status-critical { background: #fed7d7; color: #e53e3e; }
+        .status-warning { background: #fef5e7; color: #d69e2e; }
+        .status-good { background: #c6f6d5; color: #38a169; }
+
+        .connection-line {
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 20px 0;
+            border-radius: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subdimensions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 UniLicungo - Mapa Conceitual Estratégico</h1>
+        <div style="text-align: center; margin-bottom: 20px; color: #4a5568; font-style: italic;">
+            Elaborado por: <strong>Yuri Marcos John Romanisse</strong>
+        </div>
+        
+        <div class="concept-map">
+            <!-- Dimensão 8: Instalações e Infraestruturas -->
+            <div class="dimension dimension-8">
+                <div class="dimension-header" onclick="toggleDimension('dim8')">
+                    <h2 class="dimension-title">🏢 Dimensão 8: Instalações e Infraestruturas</h2>
+                    <span class="toggle-icon" id="icon-dim8">▼</span>
+                </div>
+                <div class="dimension-content" id="content-dim8">
+                    <div class="subdimensions">
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">🏫 Espaços Físicos e Virtuais</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Salas de Aula:</strong> 30,8% dos estudantes insatisfeitos com iluminação, ruído e ventilação
+                                    <span class="status-indicator status-warning">Atenção</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Laboratórios:</strong> 37,1% dos estudantes deram nota 1 (mais baixa) para condições e equipamentos
+                                    <span class="status-indicator status-critical">Crítico</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Biblioteca:</strong> 60% dos docentes avaliam negativamente a informatização e qualidade do acervo
+                                    <span class="status-indicator status-critical">Crítico</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Acessibilidade:</strong> 50% avaliam positivamente, mas há preocupações significativas
+                                    <span class="status-indicator status-warning">Melhorar</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">💻 Equipamentos e Serviços</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Internet:</strong> 69,2% dos estudantes têm acesso à internet no campus
+                                    <span class="status-indicator status-good">Bom</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Sala de Informática:</strong> Satisfação mista - 20,5% deram nota mais baixa
+                                    <span class="status-indicator status-warning">Melhorar</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Equipamentos:</strong> Investimentos elegíveis para financiamento FDI
+                                    <span class="status-indicator status-good">Oportunidade</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">🔧 Gestão Patrimonial</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Recuperação:</strong> Infraestruturas danificadas pelo ciclone Idai
+                                    <span class="status-indicator status-critical">Prioritário</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Expansão:</strong> Construção de novos edifícios nos campi de Murropué e Dondo
+                                    <span class="status-indicator status-good">Em andamento</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Localizações:</strong> Sede em Quelimane, extensão na Beira (Zambézia e Sofala)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">🛡️ Segurança e Higiene</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Segurança:</strong> 40% dos docentes atribuem nota baixa
+                                    <span class="status-indicator status-warning">Melhorar</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Primeiros Socorros:</strong> 87,2% dos estudantes conhecem o posto, mas apenas 12,5% consideram segurança adequada
+                                    <span class="status-indicator status-critical">Crítico</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Higiene:</strong> 66,7% do CTA avaliam positivamente as condições físicas
+                                    <span class="status-indicator status-good">Satisfatório</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connection-line"></div>
+
+            <!-- Dimensão 9: Extensão, Empregabilidade e Empreendedorismo -->
+            <div class="dimension dimension-9">
+                <div class="dimension-header" onclick="toggleDimension('dim9')">
+                    <h2 class="dimension-title">🚀 Dimensão 9: Extensão, Empregabilidade e Empreendedorismo</h2>
+                    <span class="toggle-icon" id="icon-dim9">▼</span>
+                </div>
+                <div class="dimension-content" id="content-dim9">
+                    <div class="subdimensions">
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">🌍 Extensão Universitária</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Missão:</strong> Formar técnicos superiores para desenvolvimento económico e sociocultural sustentável
+                                </div>
+                                <div class="key-point">
+                                    <strong>Visão 2032:</strong> Tornar-se uma "Universidade interventiva"
+                                    <span class="status-indicator status-good">Meta</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>FDI:</strong> Melhoria das ligações ensino-investigação-mercado-setor produtivo
+                                    <span class="status-indicator status-good">Financiamento</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Autonomia:</strong> Estatutária, regulamentar, científica, pedagógica, administrativa, financeira, patrimonial e disciplinar
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">💼 Empregabilidade e Empreendedorismo</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Estágios:</strong> Financiamento FDI até 1.750.000 MT por 2 anos
+                                    <span class="status-indicator status-good">Oportunidade</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>PSO:</strong> Graduados com elevada empregabilidade em bancos e ONGs
+                                    <span class="status-indicator status-good">Sucesso</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Parcerias:</strong> Cooperações com empresas e instituições para estágios
+                                    <span class="status-indicator status-good">Estratégico</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Serviços:</strong> Incubadoras, centros de inovação, feiras de emprego, oficinas de competências
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">🔬 Centro Interdisciplinar de Pesquisa</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Cooperações:</strong> Universidades e centros de pesquisa nacionais e internacionais
+                                </div>
+                                <div class="key-point">
+                                    <strong>Intercâmbios:</strong> Promoção de projetos conjuntos e intercâmbios acadêmicos
+                                </div>
+                                <div class="key-point">
+                                    <strong>Monitoria:</strong> Serviço de monitoria de empregabilidade com base de dados fidedigna
+                                    <span class="status-indicator status-good">Essencial</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connection-line"></div>
+
+            <!-- Dimensão 10: Internacionalização e Cooperação -->
+            <div class="dimension dimension-10">
+                <div class="dimension-header" onclick="toggleDimension('dim10')">
+                    <h2 class="dimension-title">🌐 Dimensão 10: Internacionalização e Cooperação</h2>
+                    <span class="toggle-icon" id="icon-dim10">▼</span>
+                </div>
+                <div class="dimension-content" id="content-dim10">
+                    <div class="subdimensions">
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">🛫 Internacionalização</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Visão:</strong> Instituição de excelência nacional, regional e internacional
+                                </div>
+                                <div class="key-point">
+                                    <strong>Mobilidade:</strong> Integração de estudantes entre IES, experiências multiculturais
+                                    <span class="status-indicator status-good">Ativo</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Financiamento:</strong> Visitas de curta duração elegíveis para FDI
+                                    <span class="status-indicator status-good">Disponível</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Projeto HEST:</strong> Beneficiária de financiamento do Banco Mundial
+                                    <span class="status-indicator status-good">Ativo</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">🤝 Cooperação Nacional</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Meta:</strong> 10 memorandos com universidades renomadas
+                                    <span class="status-indicator status-good">Objetivo</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>EaD:</strong> Parcerias estratégicas para Ensino a Distância
+                                    <span class="status-indicator status-good">Estratégico</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Redes:</strong> 15 grupos de investigação operando em rede
+                                    <span class="status-indicator status-good">Meta</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Mobilidade Interna:</strong> Responsabilidade das Unidades Orgânicas
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subdimension">
+                            <h3 class="subdimension-title">📊 Avaliação e Rankings</h3>
+                            <div class="subdimension-content">
+                                <div class="key-point">
+                                    <strong>Eventos:</strong> Metas para presença em eventos científicos nacionais e regionais
+                                </div>
+                                <div class="key-point">
+                                    <strong>Rankings:</strong> Melhorar posição nos rankings de universidades
+                                    <span class="status-indicator status-good">Ambição</span>
+                                </div>
+                                <div class="key-point">
+                                    <strong>Peritos:</strong> Comissão FDI pode incluir peritos internacionais
+                                </div>
+                                <div class="key-point">
+                                    <strong>Oportunidades:</strong> Aceitação de docentes em redes nacionais e internacionais
+                                    <span class="status-indicator status-good">Positivo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDimension(dimensionId) {
+            const content = document.getElementById('content-' + dimensionId);
+            const icon = document.getElementById('icon-' + dimensionId);
+            const dimension = content.parentElement;
+            
+            if (dimension.classList.contains('expanded')) {
+                dimension.classList.remove('expanded');
+                icon.textContent = '▼';
+            } else {
+                dimension.classList.add('expanded');
+                icon.textContent = '▲';
+            }
+        }
+
+        // Inicializar com a primeira dimensão expandida
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleDimension('dim8');
+        });
+    </script>
+</body>
+</html>

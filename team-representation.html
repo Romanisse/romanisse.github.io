@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comissão de Autoavaliação UniLicungo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .member-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e3e6ea;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .coordinator .member-card::before {
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+        }
+
+        .chief .member-card::before {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .coordinator .member-avatar {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            box-shadow: 0 8px 20px rgba(240, 147, 251, 0.3);
+        }
+
+        .chief .member-avatar {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .member-title {
+            font-size: 1rem;
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .member-role {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .coordinator .member-role {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .chief .member-role {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .member-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .detail-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .coordinator .detail-icon {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .chief .detail-icon {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #e3e6ea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .organizational-chart {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #e3e6ea;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hierarchy-level {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .hierarchy-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 0 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .hierarchy-item.coordinator {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .hierarchy-item.chief {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        .hierarchy-name {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .hierarchy-role {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .representatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+            color: #6c757d;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .university-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .hierarchy-level {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hierarchy-item {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">🎯 COMISSÃO DE AUTOAVALIAÇÃO</h1>
+            <p class="subtitle">Universidade Licungo - Equipe Técnica 2024</p>
+        </div>
+
+        <div class="team-stats">
+            <div class="stat-card">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Membros da Comissão</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Representações</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Doutores PhD</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Comprometimento</div>
+            </div>
+        </div>
+
+        <div class="organizational-chart">
+            <h2 class="chart-title">📊 Estrutura Organizacional</h2>
+            
+            <div class="hierarchy-level">
+                <div class="hierarchy-item coordinator">
+                    <div class="hierarchy-name">Dr. Ronaldo Carlos João</div>
+                    <div class="hierarchy-role">Coordenador da Comissão</div>
+                </div>
+            </div>
+            
+            <div class="hierarchy-level">
+                <div class="hierarchy-item chief">
+                    <div class="hierarchy-name">Dra. Annegret Maria António Mocala</div>
+                    <div class="hierarchy-role">Chefe da Repartição</div>
+                </div>
+            </div>
+            
+            <div class="representatives-grid">
+                <div class="hierarchy-item">
+                    <div class="hierarchy-name">Dra. Danila Montany</div>
+                    <div class="hierarchy-role">Repr. CTA</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-name">Dr. Estevão Ricardo Chapotoca</div>
+                    <div class="hierarchy-role">Repr. Empregadores</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-name">PhD. Jorge Lufiande</div>
+                    <div class="hierarchy-role">Repr. Docentes</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-name">Yuri Romanisse</div>
+                    <div class="hierarchy-role">Repr. Docentes</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-name">Miro Zolinho Zeca</div>
+                    <div class="hierarchy-role">Repr. Discentes</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-grid">
+            <div class="coordinator">
+                <div class="member-card">
+                    <div class="member-avatar">RC</div>
+                    <h3 class="member-name">Dr. Ronaldo Carlos João</h3>
+                    <div class="member-role">🎯 Coordenador da Comissão</div>
+                    <div class="member-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">👥</div>
+                            <span>Liderança estratégica</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">📊</div>
+                            <span>Supervisão geral do processo</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">🎓</div>
+                            <span>Doutorado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chief">
+                <div class="member-card">
+                    <div class="member-avatar">AM</div>
+                    <h3 class="member-name">Dra. Annegret Maria António Mocala</h3>
+                    <div class="member-role">🏛️ Chefe da Repartição</div>
+                    <div class="member-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">⚙️</div>
+                            <span>Gestão operacional</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">📋</div>
+                            <span>Supervisão administrativa</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">🎓</div>
+                            <span>Doutorado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-avatar">DM</div>
+                <h3 class="member-name">Dra. Danila Montany</h3>
+                <div class="member-role">👥 Representante CTA</div>
+                <div class="member-details">
+                    <div class="detail-item">
+                        <div class="detail-icon">🏢</div>
+                        <span>Corpo Técnico-Administrativo</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">📊</div>
+                        <span>Perspectiva administrativa</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">🎓</div>
+                        <span>Doutorado</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-avatar">EC</div>
+                <h3 class="member-name">Dr. Estevão Ricardo Chapotoca</h3>
+                <div class="member-role">🏭 Representante Empregadores</div>
+                <div class="member-details">
+                    <div class="detail-item">
+                        <div class="detail-icon">💼</div>
+                        <span>Setor empresarial</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">🎯</div>
+                        <span>Demandas do mercado</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">🎓</div>
+                        <span>Doutorado</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-avatar">JL</div>
+                <h3 class="member-name">PhD. Jorge Lufiande</h3>
+                <div class="member-role">🎓 Representante Docentes</div>
+                <div class="member-details">
+                    <div class="detail-item">
+                        <div class="detail-icon">📚</div>
+                        <span>Corpo docente</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">🔬</div>
+                        <span>Pesquisa e ensino</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">🎓</div>
+                        <span>PhD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-avatar">YR</div>
+                <h3 class="member-name">Yuri Romanisse</h3>
+                <div class="member-role">🎓 Representante Docentes</div>
+                <div class="member-details">
+                    <div class="detail-item">
+                        <div class="detail-icon">📚</div>
+                        <span>Corpo docente</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">💡</div>
+                        <span>Inovação pedagógica</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">🎯</div>
+                        <span>Análise estratégica</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-avatar">MZ</div>
+                <h3 class="member-name">Miro Zolinho Zeca</h3>
+                <div class="member-role">🎒 Representante Discentes</div>
+                <div class="member-details">
+                    <div class="detail-item">
+                        <div class="detail-icon">👨‍🎓</div>
+                        <span>Corpo discente</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">🗣️</div>
+                        <span>Voz dos estudantes</span>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">⭐</div>
+                        <span>Experiência acadêmica</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-text">
+                <strong>Missão:</strong> Conduzir processo transparente e participativo de autoavaliação institucional
+            </div>
+            <div class="footer-text">
+                <strong>Visão:</strong> Excelência e melhoria contínua na educação superior
+            </div>
+            <div class="university-logo">🎓 UNIVERSIDADE LICUNGO</div>
+        </div>
+    </div>
+</body>
+</html>
