@@ -4,26 +4,167 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yuri Romanisse - Portfólio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
-    header { background: #222; color: #fff; padding: 40px 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2.5rem; }
-    header p { margin: 5px 0 0; font-size: 1.2rem; }
-    .container { max-width: 1000px; margin: auto; padding: 20px; }
-    section { margin-bottom: 40px; }
-    h2 { color: #222; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
-    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .project { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-    .project-attachments { margin-top: 10px; }
-    .project-attachments a { display: block; color: #4a69bd; text-decoration: none; margin: 5px 0; }
-    .project-attachments a:hover { text-decoration: underline; }
-    footer { background: #222; color: #fff; text-align: center; padding: 20px; }
-    .whatsapp { display: inline-block; margin-top: 10px; padding: 10px 20px; background: #25D366; color: white; border-radius: 5px; text-decoration: none; }
-    .contact-info { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.05); margin-top: 20px; }
-    .contact-list { list-style: none; padding: 0; margin: 0; }
-    .contact-list li { margin-bottom: 10px; font-size: 1.05rem; }
-    .contact-list a { color: #2166c1; text-decoration: none; }
-    .contact-list a:hover { text-decoration: underline; }
+    body {
+      font-family: 'Montserrat', 'Roboto Slab', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #222;
+      background: url('image1') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+    /* Optional: soft background overlay for readability */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(255,255,255,0.80);
+      z-index: -1;
+      pointer-events: none;
+    }
+    header {
+      background: rgba(34,34,34,0.8);
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 0 0 18px 18px;
+      font-family: 'Roboto Slab', 'Montserrat', Arial, sans-serif;
+      box-shadow: 0 4px 24px 2px rgba(70,70,70,0.08);
+      margin-bottom: 30px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+    header p {
+      margin: 5px 0 0;
+      font-size: 1.3rem;
+      font-weight: 400;
+      opacity: 0.95;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 24px 40px 24px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 18px;
+      box-shadow: 0 8px 28px 0 rgba(60,60,60,0.08);
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    h2 {
+      color: #203060;
+      font-family: 'Roboto Slab', Arial, sans-serif;
+      border-bottom: 2px solid #cfd8dc;
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    ul {
+      font-size: 1.09rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 22px;
+    }
+    .project {
+      background: rgba(255,255,255,0.99);
+      padding: 22px 18px;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px 0 rgba(70,70,70,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .project:hover {
+      transform: translateY(-4px) scale(1.025);
+      box-shadow: 0 8px 32px 0 rgba(30,60,110,0.10);
+    }
+    .project-attachments {
+      margin-top: 12px;
+    }
+    .project-attachments a {
+      display: block;
+      color: #3061c4;
+      text-decoration: none;
+      margin: 5px 0;
+      font-weight: 600;
+      transition: color 0.12s;
+    }
+    .project-attachments a:hover {
+      text-decoration: underline;
+      color: #1a386e;
+    }
+    footer {
+      background: rgba(34,34,34,0.8);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      border-radius: 18px 18px 0 0;
+      margin-top: 40px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.07rem;
+      letter-spacing: 1px;
+    }
+    .whatsapp {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 24px;
+      background: linear-gradient(90deg, #25D366 65%, #128C7E 100%);
+      color: white;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      box-shadow: 0 1px 8px 0 rgba(30,110,70,0.13);
+      transition: background 0.16s;
+    }
+    .whatsapp:hover {
+      background: linear-gradient(90deg, #128C7E 60%, #25D366 100%);
+      color: #f9f9f9;
+    }
+    .contact-info {
+      background: rgba(255,255,255,0.98);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 8px 0 rgba(30,60,110,0.05);
+      margin-top: 20px;
+    }
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .contact-list li {
+      margin-bottom: 10px;
+      font-size: 1.11rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .contact-list a {
+      color: #2166c1;
+      text-decoration: none;
+      transition: color 0.12s;
+    }
+    .contact-list a:hover {
+      text-decoration: underline;
+      color: #203060;
+    }
+    @media (max-width: 600px) {
+      header { padding: 30px 6px; }
+      .container { padding: 10px 2vw; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.2rem; }
+      .projects { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
